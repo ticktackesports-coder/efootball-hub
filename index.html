@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#080b14">
+  <link rel="manifest" href="manifest.json">
+  <title>eFootball Hub eFootball Hub</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="mark">⚽</span><div><b>eFOOTBALL</b><small>HUB</small></div></div>
+  <button id="installBtn" class="ghost hidden">Install</button>
+</header>
+
+<main>
+  <section id="home" class="page active">
+    <div class="hero">
+      <div><span class="pill">LIVE HUB</span><h1>eFootball news.<br><span>Rankings. Tournaments.</span></h1>
+      <p>Your modern football esports community dashboard.</p></div>
+      <div class="hero-ball">⚽</div>
+    </div>
+    <div class="section-head"><h2>Latest News</h2><button onclick="showPage('news')">View all</button></div>
+    <div id="homeNews" class="news-grid"></div>
+    <div class="section-head"><h2>Top Ranking</h2><button onclick="showPage('ranking')">Full ranking</button></div>
+    <div id="homeRanking" class="rank-list"></div>
+    <div class="section-head"><h2>Upcoming</h2></div>
+    <div id="homeTournaments" class="tour-grid"></div>
+  </section>
+
+  <section id="news" class="page">
+    <div class="page-title"><span>NEWSROOM</span><h1>eFootball News</h1><p>Updates, tournament stories and community news.</p></div>
+    <div id="newsList" class="news-list"></div>
+  </section>
+
+  <section id="ranking" class="page">
+    <div class="page-title"><span>LEADERBOARD</span><h1>Player Ranking</h1><p>Points are calculated from match results.</p></div>
+    <div class="filters"><button class="filter active" data-filter="Sabah">Sabah</button><button class="filter" data-filter="Malaysia">Malaysia</button><button class="filter" data-filter="eFootball Hub">eFootball Hub</button></div>
+    <div id="rankingList" class="rank-list big"></div>
+  </section>
+
+  <section id="tournaments" class="page">
+    <div class="page-title"><span>COMPETITION</span><h1>Tournaments</h1><p>Fixtures, registrations and results.</p></div>
+    <div id="tournamentList" class="tour-list"></div>
+  </section>
+
+  <section id="profile" class="page">
+    <div class="page-title"><span>PLAYER</span><h1>My Profile</h1></div>
+    <div class="profile-card">
+      <div class="avatar">TT</div><div><h2>Demo Player</h2><p>eFootball Hub</p></div><span class="rating">842 PTS</span>
+    </div>
+    <div class="stats"><div><b>28</b><small>Matches</small></div><div><b>19</b><small>Wins</small></div><div><b>67.9%</b><small>Win Rate</small></div></div>
+    <div class="card"><h3>Achievements</h3><div class="badge-row"><span>🏆 Champion</span><span>🔥 5 Win Streak</span><span>⭐ Top 10</span></div></div>
+  </section>
+</main>
+
+<nav class="bottom-nav">
+  <button class="nav active" data-page="home">⌂<small>Home</small></button>
+  <button class="nav" data-page="news">📰<small>News</small></button>
+  <button class="nav" data-page="ranking">🏆<small>Ranking</small></button>
+  <button class="nav" data-page="tournaments">🎮<small>Tournaments</small></button>
+  <button class="nav" data-page="profile">👤<small>Profile</small></button>
+</nav>
+<script src="app.js"></script>
+</body>
+</html>

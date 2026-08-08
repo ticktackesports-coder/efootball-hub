@@ -1,0 +1,44 @@
+const news=[
+ {tag:"UPDATE",title:"eFootball Hub launches for Sabah players",text:"A new home for local news, rankings and tournaments.",date:"08 Aug 2026"},
+ {tag:"TOURNAMENT",title:"Road to Selangor: final preparations",text:"Players are getting ready for the August competitive schedule.",date:"07 Aug 2026"},
+ {tag:"COMMUNITY",title:"eFootball Hub Super League returns",text:"Registration and fixtures will be published in the tournament centre.",date:"05 Aug 2026"}];
+const players=[
+ {name:"Mark'o",team:"eFootball Hub",points:1245,region:"Sabah",wins:24},
+ {name:"Player Alpha",team:"Sabah EFC",points:1180,region:"Sabah",wins:22},
+ {name:"Player Bravo",team:"eFootball Hub",points:1120,region:"Sabah",wins:20},
+ {name:"Player Charlie",team:"Kota Kinabalu FC",points:1055,region:"Malaysia",wins:18},
+ {name:"Player Delta",team:"Sandakan Esports",points:990,region:"Sabah",wins:17},
+ {name:"Player Echo",team:"eFootball Hub",points:935,region:"Malaysia",wins:16}];
+const tournaments=[
+ {name:"eFootball Hub Super League",date:"20 Aug 2026",place:"Kota Kinabalu",status:"REGISTRATION OPEN"},
+ {name:"Road to Selangor Cup",date:"19 Aug 2026",place:"Selangor",status:"UPCOMING"},
+ {name:"Merdeka eFootball Fiesta",date:"31 Aug 2026",place:"Sabah",status:"UPCOMING"}];
+
+function newsCard(n){return `<article class="news-card"><span class="tag">${n.tag}</span><h3>${n.title}</h3><p>${n.text}</p><time>${n.date}</time></article>`}
+function rankRow(p,i){return `<div class="rank-row"><div class="rank-no">${i<3?["🥇","🥈","🥉"][i]:"#"+(i+1)}</div><div class="player">${p.name}<small>${p.team} · ${p.wins} wins</small></div><div class="pts">${p.points} <small>PTS</small></div></div>`}
+function tourCard(t){return `<div class="tour-card"><span class="tag">${t.status}</span><b>${t.name}</b><p>📅 ${t.date}<br>📍 ${t.place}</p></div>`}
+function render(){
+ document.querySelector("#homeNews").innerHTML=news.slice(0,3).map(newsCard).join("");
+ document.querySelector("#newsList").innerHTML=news.map(newsCard).join("");
+ document.querySelector("#homeRanking").innerHTML=players.slice(0,3).map(rankRow).join("");
+ document.querySelector("#rankingList").innerHTML=players.map(rankRow).join("");
+ document.querySelector("#homeTournaments").innerHTML=tournaments.map(tourCard).join("");
+ document.querySelector("#tournamentList").innerHTML=tournaments.map(t=>`<div class="tour-item"><div><b>${t.name}</b><p>${t.date} · ${t.place}</p></div><span class="status">${t.status}</span></div>`).join("");
+}
+function showPage(id){
+ document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===id));
+ document.querySelectorAll(".nav").forEach(x=>x.classList.toggle("active",x.dataset.page===id));
+ scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll(".nav").forEach(n=>n.onclick=()=>showPage(n.dataset.page));
+document.querySelectorAll(".filter").forEach(btn=>btn.onclick=()=>{
+ document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
+ const f=btn.dataset.filter;
+ const list=f==="eFootball Hub"?players.filter(p=>p.team.includes("eFootball Hub")):f==="Malaysia"?players:players.filter(p=>p.region==="Sabah");
+ document.querySelector("#rankingList").innerHTML=list.map(rankRow).join("");
+});
+let deferredPrompt;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;document.querySelector("#installBtn").classList.remove("hidden")});
+document.querySelector("#installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();deferredPrompt=null}};
+if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+render();
