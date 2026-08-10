@@ -1,15 +1,24 @@
-const news=[
+const SUPABASE_URL = "https://gpmdnxicldslvjlqqsha.supabase.co";
+const SUPABASE_KEY = "sb_publishable_yzLgfz-sU4h1mou_1rpUfw_u1fjSU_w";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+let news=[
  {tag:"UPDATE",title:"eFootball Hub launches for Sabah players",text:"A new home for local news, rankings and tournaments.",date:"08 Aug 2026"},
  {tag:"TOURNAMENT",title:"Road to Selangor: final preparations",text:"Players are getting ready for the August competitive schedule.",date:"07 Aug 2026"},
  {tag:"COMMUNITY",title:"eFootball Hub Super League returns",text:"Registration and fixtures will be published in the tournament centre.",date:"05 Aug 2026"}];
-const players=[
+let players=[
  {name:"Mark'o",team:"eFootball Hub",points:1245,region:"Sabah",wins:24},
  {name:"Player Alpha",team:"Sabah EFC",points:1180,region:"Sabah",wins:22},
  {name:"Player Bravo",team:"eFootball Hub",points:1120,region:"Sabah",wins:20},
  {name:"Player Charlie",team:"Kota Kinabalu FC",points:1055,region:"Malaysia",wins:18},
  {name:"Player Delta",team:"Sandakan Esports",points:990,region:"Sabah",wins:17},
  {name:"Player Echo",team:"eFootball Hub",points:935,region:"Malaysia",wins:16}];
-const tournaments=[
+let tournaments=[
  {name:"eFootball Hub Super League",date:"20 Aug 2026",place:"Kota Kinabalu",status:"REGISTRATION OPEN"},
  {name:"Road to Selangor Cup",date:"19 Aug 2026",place:"Selangor",status:"UPCOMING"},
  {name:"Merdeka eFootball Fiesta",date:"31 Aug 2026",place:"Sabah",status:"UPCOMING"}];
