@@ -49,6 +49,7 @@ if (matchList) {
 }
 
 }
+
 function showPage(id){
  document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===id));
  document.querySelectorAll(".nav").forEach(x=>x.classList.toggle("active",x.dataset.page===id));
