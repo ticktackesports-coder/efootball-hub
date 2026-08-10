@@ -46,6 +46,7 @@ const matchList = document.querySelector("#matchList");
 
 if (matchList) {
   matchList.innerHTML = matches.map(matchCard).join("");
+}
 
 }
 function showPage(id){
