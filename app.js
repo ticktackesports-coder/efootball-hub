@@ -22,7 +22,7 @@ let tournaments=[
  {name:"eFootball Hub Super League",date:"20 Aug 2026",place:"Kota Kinabalu",status:"REGISTRATION OPEN"},
  {name:"Road to Selangor Cup",date:"19 Aug 2026",place:"Selangor",status:"UPCOMING"},
  {name:"Merdeka eFootball Fiesta",date:"31 Aug 2026",place:"Sabah",status:"UPCOMING"}];
-
+let matches = [];
 function newsCard(n){return `<article class="news-card"><span class="tag">${n.tag}</span><h3>${n.title}</h3><p>${n.text}</p><time>${n.date}</time></article>`}
 function rankRow(p,i){return `<div class="rank-row"><div class="rank-no">${i<3?["🥇","🥈","🥉"][i]:"#"+(i+1)}</div><div class="player">${p.name}<small>${p.team} · ${p.wins} wins</small></div><div class="pts">${p.points} <small>PTS</small></div></div>`}
 function tourCard(t){return `<div class="tour-card"><span class="tag">${t.status}</span><b>${t.name}</b><p>📅 ${t.date}<br>📍 ${t.place}</p></div>`}
@@ -76,6 +76,18 @@ async function loadSupabaseData() {
   } else if (tournamentData && tournamentData.length > 0) {
     tournaments = tournamentData;
   }
+// LOAD MATCHES
+const { data: matchData, error: matchError } =
+  await supabaseClient
+    .from("matches")
+    .select("*")
+    .order("match_date", { ascending: false });
+
+if (matchError) {
+  console.error("MATCH ERROR:", matchError);
+} else if (matchData && matchData.length > 0) {
+  matches = matchData;
+}
 // LOAD NEWS
 const { data: newsData, error: newsError } =
   await supabaseClient
