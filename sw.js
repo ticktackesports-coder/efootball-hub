@@ -1,4 +1,4 @@
-const CACHE = "tt-ef-v2";
+const CACHE = "tt-ef-v3";
 
 const ASSETS = [
   "./",
@@ -6,7 +6,9 @@ const ASSETS = [
   "./styles.css",
   "./app.js",
   "./manifest.json",
-  "./icon.svg"
+  "./icon.svg",
+  "./icon-192.png",
+  "./icon-512.png"
 ];
 
 self.addEventListener("install", event => {
