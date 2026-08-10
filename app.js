@@ -26,6 +26,15 @@ let matches = [];
 function newsCard(n){return `<article class="news-card"><span class="tag">${n.tag}</span><h3>${n.title}</h3><p>${n.text}</p><time>${n.date}</time></article>`}
 function rankRow(p,i){return `<div class="rank-row"><div class="rank-no">${i<3?["🥇","🥈","🥉"][i]:"#"+(i+1)}</div><div class="player">${p.name}<small>${p.team} · ${p.wins} wins</small></div><div class="pts">${p.points} <small>PTS</small></div></div>`}
 function tourCard(t){return `<div class="tour-card"><span class="tag">${t.status}</span><b>${t.name}</b><p>📅 ${t.date}<br>📍 ${t.place}</p></div>`}
+function matchCard(m) {
+  return `
+    <div class="tour-card">
+      <span class="tag">${m.status || "MATCH"}</span>
+      <b>${m.player1} ${m.score1 ?? "-"} - ${m.score2 ?? "-"} ${m.player2}</b>
+      <p>⚽ Match Result</p>
+    </div>
+  `;
+}
 function render(){
  document.querySelector("#homeNews").innerHTML=news.slice(0,3).map(newsCard).join("");
  document.querySelector("#newsList").innerHTML=news.map(newsCard).join("");
@@ -33,6 +42,11 @@ function render(){
  document.querySelector("#rankingList").innerHTML=players.map(rankRow).join("");
  document.querySelector("#homeTournaments").innerHTML=tournaments.map(tourCard).join("");
  document.querySelector("#tournamentList").innerHTML=tournaments.map(t=>`<div class="tour-item"><div><b>${t.name}</b><p>${t.date} · ${t.place}</p></div><span class="status">${t.status}</span></div>`).join("");
+const matchList = document.querySelector("#matchList");
+
+if (matchList) {
+  matchList.innerHTML = matches.map(matchCard).join("");
+
 }
 function showPage(id){
  document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===id));
