@@ -51,62 +51,24 @@ window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPro
 document.querySelector("#installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();deferredPrompt=null}};
 if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
 async function loadSupabaseData() {
-  try {
-    // Load players
-    const { data: playerData, error: playerError } =
-      await supabaseClient
-        .from("players")
-        .select("*")
-        .order("points", { ascending: false });
+  const { data, error } = await supabaseClient
+    .from("players")
+    .select("*")
+    .order("points", { ascending: false });
 
-    if (playerError) throw playerError;
-
-    // Load tournaments
-    const { data: tournamentData, error: tournamentError } =
-      await supabaseClient
-        .from("tournaments")
-        .select("*")
-        .order("date", { ascending: true });
-
-    if (tournamentError) throw tournamentError;
-
-    // Load news
-    const { data: newsData, error: newsError } =
-      await supabaseClient
-        .from("news")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-    if (newsError) throw newsError;
-
-    // Replace demo data only when Supabase has data
-    if (playerData && playerData.length > 0) {
-      players = playerData;
-    }
-
-    if (tournamentData && tournamentData.length > 0) {
-      tournaments = tournamentData;
-    }
-
-    if (newsData && newsData.length > 0) {
-      news = newsData.map(n => ({
-        tag: n.tag || "NEWS",
-        title: n.title,
-        text: n.content || "",
-        date: new Date(n.created_at).toLocaleDateString()
-      }));
-    }
-
+  if (error) {
+    console.error("PLAYER ERROR:", error);
     render();
-
-    console.log("Supabase data loaded successfully");
-
-  } catch (error) {
-    console.error("Supabase error:", error);
-
-    // Show existing demo data if Supabase fails
-    render();
+    return;
   }
+
+  console.log("PLAYERS FROM SUPABASE:", data);
+
+  if (data && data.length > 0) {
+    players = data;
+  }
+
+  render();
 }
 
 loadSupabaseData();
