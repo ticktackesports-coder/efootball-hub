@@ -51,21 +51,30 @@ window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPro
 document.querySelector("#installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();deferredPrompt=null}};
 if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
 async function loadSupabaseData() {
-  const { data, error } = await supabaseClient
-    .from("players")
-    .select("*")
-    .order("points", { ascending: false });
+  // LOAD PLAYERS
+  const { data: playerData, error: playerError } =
+    await supabaseClient
+      .from("players")
+      .select("*")
+      .order("points", { ascending: false });
 
-  if (error) {
-    console.error("PLAYER ERROR:", error);
-    render();
-    return;
+  if (playerError) {
+    console.error("PLAYER ERROR:", playerError);
+  } else if (playerData && playerData.length > 0) {
+    players = playerData;
   }
 
-  console.log("PLAYERS FROM SUPABASE:", data);
+  // LOAD TOURNAMENTS
+  const { data: tournamentData, error: tournamentError } =
+    await supabaseClient
+      .from("tournaments")
+      .select("*")
+      .order("date", { ascending: true });
 
-  if (data && data.length > 0) {
-    players = data;
+  if (tournamentError) {
+    console.error("TOURNAMENT ERROR:", tournamentError);
+  } else if (tournamentData && tournamentData.length > 0) {
+    tournaments = tournamentData;
   }
 
   render();
