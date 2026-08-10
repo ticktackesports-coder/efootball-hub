@@ -76,7 +76,29 @@ async function loadSupabaseData() {
   } else if (tournamentData && tournamentData.length > 0) {
     tournaments = tournamentData;
   }
+// LOAD NEWS
+const { data: newsData, error: newsError } =
+  await supabaseClient
+    .from("news")
+    .select("*")
+    .order("created_at", { ascending: false });
 
+if (newsError) {
+  console.error("NEWS ERROR:", newsError);
+} else if (newsData && newsData.length > 0) {
+  news = newsData.map(n => ({
+    tag: n.tag || "NEWS",
+    title: n.title || "Untitled",
+    text: n.content || "",
+    date: n.created_at
+      ? new Date(n.created_at).toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        })
+      : ""
+  }));
+}
   render();
 }
 
