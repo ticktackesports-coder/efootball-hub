@@ -42,13 +42,12 @@ function render(){
  document.querySelector("#rankingList").innerHTML=players.map(rankRow).join("");
  document.querySelector("#homeTournaments").innerHTML=tournaments.map(tourCard).join("");
  document.querySelector("#tournamentList").innerHTML=tournaments.map(t=>`<div class="tour-item"><div><b>${t.name}</b><p>${t.date} · ${t.place}</p></div><span class="status">${t.status}</span></div>`).join("");
-const matchList = document.querySelector("#matchList");
-
+const matchList = document.querySelector("#matchList")
 if (matchList) {
   matchList.innerHTML = matches.map(matchCard).join("");
 }
 
-}
+}   
 
 function showPage(id){
  document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===id));
