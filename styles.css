@@ -13,3 +13,20 @@
   align-items: center;
   gap: 12px;
 }
+/* FIX LOGO SIZE */
+header.topbar .brand .brand-logo {
+  width: 50px !important;
+  height: 50px !important;
+  max-width: 50px !important;
+  max-height: 50px !important;
+  min-width: 50px !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+  flex: 0 0 50px !important;
+}
+
+header.topbar .brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
