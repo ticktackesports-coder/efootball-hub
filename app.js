@@ -136,7 +136,6 @@ window.addEventListener("beforeinstallprompt", (event) => {
   deferredPrompt = event;
 
   const installBtn = document.querySelector("#installBtn");
-
   if (installBtn) {
     installBtn.classList.remove("hidden");
   }
