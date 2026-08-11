@@ -30,3 +30,19 @@ header.topbar .brand {
   align-items: center !important;
   gap: 12px !important;
 }
+/* LIVE HUB EFOOTBALL LOGO */
+.hero-ball {
+  width: 110px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-ball img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  display: block;
+}
