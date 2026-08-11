@@ -539,176 +539,84 @@ function setupFilters() {
 async function loadSupabaseData() {
 
   if (!supabaseClient) {
-
-    console.warn(
-      "Supabase library not loaded. Using fallback data."
-    );
-
+    console.warn("Supabase client not available");
     render();
-
     return;
-
   }
-
 
   try {
 
-    // --------------------------
     // PLAYERS
-    // --------------------------
-
     const { data: playerData, error: playerError } =
-  await supabaseClient
-    .from("players")
-    .select("*");
-
+      await supabaseClient
+        .from("players")
+        .select("*");
 
     if (playerError) {
-
-      console.error(
-        "PLAYER ERROR:",
-        playerError
-      );
-
-    }
-
-    else if (
-      playerData &&
-      playerData.length > 0
-    ) {
-
+      console.error("PLAYER ERROR:", playerError);
+    } else if (playerData && playerData.length > 0) {
       players = playerData;
-
     }
 
 
-    // --------------------------
     // TOURNAMENTS
-    // --------------------------
-
     const { data: tournamentData, error: tournamentError } =
-  await supabaseClient
-    .from("tournaments")
-    .select("*");
-
+      await supabaseClient
+        .from("tournaments")
+        .select("*");
 
     if (tournamentError) {
-
-      console.error(
-        "TOURNAMENT ERROR:",
-        tournamentError
-      );
-
-    }
-
-    else if (
-      tournamentData &&
-      tournamentData.length > 0
-    ) {
-
-      tournaments =
-        tournamentData;
-
+      console.error("TOURNAMENT ERROR:", tournamentError);
+    } else if (tournamentData && tournamentData.length > 0) {
+      tournaments = tournamentData;
     }
 
 
-    // --------------------------
     // MATCHES
-    // --------------------------
-
     const { data: matchData, error: matchError } =
-  await supabaseClient
-    .from("matches")
-    .select("*");
-
+      await supabaseClient
+        .from("matches")
+        .select("*");
 
     if (matchError) {
-
-      console.error(
-        "MATCH ERROR:",
-        matchError
-      );
-
-    }
-
-    else if (
-      matchData &&
-      matchData.length > 0
-    ) {
-
+      console.error("MATCH ERROR:", matchError);
+    } else if (matchData && matchData.length > 0) {
       matches = matchData;
-
     }
 
 
-    // --------------------------
     // NEWS
-    // --------------------------
-
     const { data: newsData, error: newsError } =
-  await supabaseClient
-    .from("news")
-    .select("*");
-
+      await supabaseClient
+        .from("news")
+        .select("*");
 
     if (newsError) {
+      console.error("NEWS ERROR:", newsError);
+    } else if (newsData && newsData.length > 0) {
 
-      console.error(
-        "NEWS ERROR:",
-        newsError
-      );
-
-    }
-
-    else if (
-      newsData &&
-      newsData.length > 0
-    ) {
-
-      news = newsData.map((n) => ({
-
-        tag:
-          n.tag || "NEWS",
-
-        title:
-          n.title || "Untitled",
-
-        text:
-          n.content || n.text || "",
-
-        date:
-          n.created_at
-            ? new Date(
-                n.created_at
-              ).toLocaleDateString(
-                "en-GB",
-                {
-                  day: "2-digit",
-                  month: "short",
-                  year: "numeric"
-                }
-              )
-            : n.date || ""
-
+      news = newsData.map(n => ({
+        tag: n.tag || "NEWS",
+        title: n.title || "Untitled",
+        text: n.content || n.text || "",
+        date: n.created_at
+          ? new Date(n.created_at).toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric"
+            })
+          : n.date || ""
       }));
 
     }
 
+  } catch (error) {
+
+    console.error("SUPABASE LOAD ERROR:", error);
 
   }
-
-  catch (error) {
-
-    console.error(
-      "SUPABASE LOAD ERROR:",
-      error
-    );
-
-  }
-
 
   render();
-
 }
 
 
@@ -868,19 +776,17 @@ document.addEventListener(
   "DOMContentLoaded",
   () => {
 
-    // Render fallback data immediately
-    render();
+    // Activate navigation FIRST
+setupNavigation();
 
-    // Activate navigation
-    setupNavigation();
+// Activate ranking filters
+setupFilters();
 
-    // Activate ranking filters
-    setupFilters();
+// Activate install button
+setupInstallButton();
 
-    // Activate install button
-    setupInstallButton();
-
-    // Start on Home if no page is active
+// Render fallback data AFTER buttons are activated
+render();
     const activePage =
       document.querySelector(
         ".page.active"
