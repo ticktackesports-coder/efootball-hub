@@ -734,7 +734,7 @@ window.addEventListener(
 
 
     const installBtn =
-      getElement("#installBtn");
+      document.querySelector("#installBtn")
 
 
     if (installBtn) {
@@ -752,7 +752,7 @@ window.addEventListener(
 function setupInstallButton() {
 
   const installBtn =
-    getElement("#installBtn");
+    document.querySelector("#installBtn");
 
 
   if (!installBtn) {
