@@ -911,3 +911,145 @@ document.addEventListener(
 
   }
 );
+// ========================================
+// EDIT PLAYER PROFILE
+// ========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const editBtn = document.querySelector("#editProfileBtn");
+
+  if (!editBtn) return;
+
+
+  // Load saved profile
+  const savedProfile = JSON.parse(
+    localStorage.getItem("efootballProfile") || "{}"
+  );
+
+  function updateProfile(profile) {
+
+    const nameEl = document.querySelector("#profileName");
+    const teamEl = document.querySelector("#profileTeam");
+    const ratingEl = document.querySelector("#profileRating");
+    const matchesEl = document.querySelector("#profileMatches");
+    const winsEl = document.querySelector("#profileWins");
+    const winRateEl = document.querySelector("#profileWinRate");
+
+    if (nameEl && profile.name) {
+      nameEl.textContent = profile.name;
+    }
+
+    if (teamEl && profile.team) {
+      teamEl.textContent = profile.team;
+    }
+
+    if (ratingEl && profile.rating !== undefined) {
+      ratingEl.textContent = profile.rating;
+    }
+
+    if (matchesEl && profile.matches !== undefined) {
+      matchesEl.textContent = profile.matches;
+    }
+
+    if (winsEl && profile.wins !== undefined) {
+      winsEl.textContent = profile.wins;
+    }
+
+    if (
+      winRateEl &&
+      profile.matches > 0
+    ) {
+      const rate =
+        (profile.wins / profile.matches) * 100;
+
+      winRateEl.textContent =
+        rate.toFixed(1) + "%";
+    }
+  }
+
+
+  // Load existing saved data
+  updateProfile(savedProfile);
+
+
+  // Edit button
+  editBtn.addEventListener("click", () => {
+
+    const currentName =
+      document.querySelector("#profileName")?.textContent || "";
+
+    const currentTeam =
+      document.querySelector("#profileTeam")?.textContent || "";
+
+    const currentRating =
+      document.querySelector("#profileRating")?.textContent || "0";
+
+    const currentMatches =
+      document.querySelector("#profileMatches")?.textContent || "0";
+
+    const currentWins =
+      document.querySelector("#profileWins")?.textContent || "0";
+
+
+    const name = prompt(
+      "Player Name:",
+      currentName
+    );
+
+    if (name === null) return;
+
+
+    const team = prompt(
+      "Team Name:",
+      currentTeam
+    );
+
+    if (team === null) return;
+
+
+    const rating = prompt(
+      "Ranking Points:",
+      currentRating
+    );
+
+    if (rating === null) return;
+
+
+    const matches = prompt(
+      "Matches Played:",
+      currentMatches
+    );
+
+    if (matches === null) return;
+
+
+    const wins = prompt(
+      "Wins:",
+      currentWins
+    );
+
+    if (wins === null) return;
+
+
+    const profile = {
+      name: name.trim() || "Player",
+      team: team.trim() || "No Team",
+      rating: Number(rating) || 0,
+      matches: Number(matches) || 0,
+      wins: Number(wins) || 0
+    };
+
+
+    localStorage.setItem(
+      "efootballProfile",
+      JSON.stringify(profile)
+    );
+
+    updateProfile(profile);
+
+    alert("✅ Profile saved!");
+
+  });
+
+});
