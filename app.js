@@ -557,17 +557,10 @@ async function loadSupabaseData() {
     // PLAYERS
     // --------------------------
 
-    const {
-      data: playerData,
-      error: playerError
-    } =
-      await supabaseClient
-        .from("players")
-        .select("*")
-        .order(
-          "points",
-          { ascending: false }
-        );
+    const { data: playerData, error: playerError } =
+  await supabaseClient
+    .from("players")
+    .select("*");
 
 
     if (playerError) {
@@ -593,17 +586,10 @@ async function loadSupabaseData() {
     // TOURNAMENTS
     // --------------------------
 
-    const {
-      data: tournamentData,
-      error: tournamentError
-    } =
-      await supabaseClient
-        .from("tournaments")
-        .select("*")
-        .order(
-          "date",
-          { ascending: true }
-        );
+    const { data: tournamentData, error: tournamentError } =
+  await supabaseClient
+    .from("tournaments")
+    .select("*");
 
 
     if (tournamentError) {
@@ -630,17 +616,10 @@ async function loadSupabaseData() {
     // MATCHES
     // --------------------------
 
-    const {
-      data: matchData,
-      error: matchError
-    } =
-      await supabaseClient
-        .from("matches")
-        .select("*")
-        .order(
-          "match_date",
-          { ascending: false }
-        );
+    const { data: matchData, error: matchError } =
+  await supabaseClient
+    .from("matches")
+    .select("*");
 
 
     if (matchError) {
@@ -666,17 +645,10 @@ async function loadSupabaseData() {
     // NEWS
     // --------------------------
 
-    const {
-      data: newsData,
-      error: newsError
-    } =
-      await supabaseClient
-        .from("news")
-        .select("*")
-        .order(
-          "created_at",
-          { ascending: false }
-        );
+    const { data: newsData, error: newsError } =
+  await supabaseClient
+    .from("news")
+    .select("*");
 
 
     if (newsError) {
