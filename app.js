@@ -128,14 +128,15 @@ if (newsError) {
 }
   render();
 }
-
 loadSupabaseData();
 let deferredPrompt;
+
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
   deferredPrompt = event;
 
   const installBtn = document.querySelector("#installBtn");
+
   if (installBtn) {
     installBtn.classList.remove("hidden");
   }
@@ -149,21 +150,17 @@ document.querySelector("#installBtn")?.addEventListener("click", async () => {
 
   deferredPrompt = null;
 
-const installBtn =
-  document.querySelector("#installBtn");
-
-if (installBtn) {
-  installBtn.classList.add("hidden");
-}
-
-});
-
-window.addEventListener("appinstalled", () => {
-  const installBtn =
-    document.querySelector("#installBtn");
+  const installBtn = document.querySelector("#installBtn");
 
   if (installBtn) {
     installBtn.classList.add("hidden");
   }
+});
 
+window.addEventListener("appinstalled", () => {
+  const installBtn = document.querySelector("#installBtn");
+
+  if (installBtn) {
+    installBtn.classList.add("hidden");
+  }
 });
