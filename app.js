@@ -17,6 +17,29 @@ const SUPABASE_KEY =
 const supabaseClient = window.supabase
   ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
   : null;
+async function testSupabase() {
+  console.log("Testing Supabase...");
+
+  if (!supabaseClient) {
+    console.error("Supabase client NOT created");
+    return;
+  }
+
+  const { data, error } = await supabaseClient
+    .from("tournaments")
+    .select("*");
+
+  if (error) {
+    console.error("SUPABASE ERROR:", error);
+    alert("Supabase error: " + error.message);
+    return;
+  }
+
+  console.log("SUPABASE DATA:", data);
+  alert("Supabase connected! Tournaments: " + data.length);
+}
+
+testSupabase();
 
 
 // ======================================================
