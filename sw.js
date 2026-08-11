@@ -1,4 +1,4 @@
-const CACHE = "tt-ef-v8";
+const CACHE = "tt-ef-v9";
 
 const ASSETS = [
   "./",
