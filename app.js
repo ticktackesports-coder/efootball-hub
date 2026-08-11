@@ -364,96 +364,65 @@ function render() {
 }
 
 
-// ======================================================
+// 
+==========================================
 // 9. PAGE NAVIGATION
-// ======================================================
+// ==========================================
 
 function showPage(id) {
+  if (!id) return;
 
-  if (!id) {
+  const targetPage = document.getElementById(id);
+
+  if (!targetPage) {
+    console.error("Page not found:", id);
     return;
   }
 
+  // Hide all pages
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active");
+  });
 
-  // Hide/show pages
-
-  document
-    .querySelectorAll(".page")
-    .forEach((page) => {
-
-      page.classList.toggle(
-        "active",
-        page.id === id
-      );
-
-    });
-
+  // Show selected page
+  targetPage.classList.add("active");
 
   // Update bottom navigation
-
-  document
-    .querySelectorAll(".nav")
-    .forEach((nav) => {
-
-      nav.classList.toggle(
-        "active",
-        nav.dataset.page === id
-      );
-
-    });
-
-
-  // Go to top
+  document.querySelectorAll(".nav").forEach(nav => {
+    nav.classList.toggle(
+      "active",
+      nav.dataset.page === id
+    );
+  });
 
   window.scrollTo({
     top: 0,
     behavior: "smooth"
   });
-
 }
 
 
-// ======================================================
+// ==========================================
 // 10. NAV BUTTON EVENTS
-// ======================================================
+// ==========================================
 
 function setupNavigation() {
 
-  document
-    .querySelectorAll(".nav")
-    .forEach((nav) => {
+  document.querySelectorAll("[data-page]").forEach(button => {
 
-      nav.addEventListener("click", (event) => {
+    button.addEventListener("click", function(event) {
 
-        event.preventDefault();
+      event.preventDefault();
 
-        const page =
-          nav.dataset.page;
+      const pageId = this.dataset.page;
 
-        showPage(page);
-
-      });
+      if (pageId) {
+        showPage(pageId);
+      }
 
     });
 
-
-  // Support buttons elsewhere in the page
-  // that also use data-page
-
-  document
-    .querySelectorAll("[data-page]:not(.nav)")
-    .forEach((button) => {
-
-      button.addEventListener("click", () => {
-
-        const page =
-          button.dataset.page;
-
-        showPage(page);
-
-      });
-
-    });
+  });
 
 }
 
