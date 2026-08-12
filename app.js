@@ -558,7 +558,7 @@ async function loadSupabaseData() {
 
     // NEWS
     const { data: newsData, error: newsError } =
-      await supabaseClient
+    await supabaseClient
         .from("news")
         .select("*");
 
