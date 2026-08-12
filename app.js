@@ -37,7 +37,7 @@ async function testSupabase() {
   }
 
   console.log("SUPABASE DATA:", data);
-  alert("Supabase connected! Tournaments: " + data.length);
+ 
 }
 
 testSupabase();
