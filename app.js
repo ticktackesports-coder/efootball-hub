@@ -9,6 +9,9 @@
 // 1. SUPABASE
 // ======================================================
 
+
+const SUPABASE_URL =
+  "https://gpmdnxicldslvjlqqsha.supabase.co";
 const SUPABASE_KEY =
 "sb_publishable_yzLgfz-sU4h1mou_1rpUfw_u1fjSU_w";
 
