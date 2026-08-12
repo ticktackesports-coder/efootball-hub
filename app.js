@@ -1,4 +1,3 @@
-alert("APP.JS IS RUNNING");
 
 // ======================================================
 // eFOOTBALL HUB - app.js
